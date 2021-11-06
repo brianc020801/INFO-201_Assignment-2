@@ -12,7 +12,8 @@ Note, this is a long assignment, meant to be completed over the two weeks when w
 ## Analysis
 You should start this assignment by opening up your `analysis.R` script. The script will guide you through an initial analysis of the data. Throughout the script, there are prompts labeled **Reflection**. Please write 1 - 2 sentences for each of these reflections below:
 
-- What does each row in the data represent (hint: read the [documentation](https://github.com/nytimes/covid-19-data/)!)?
+- What does each row in the data represent (hint: read the [documentation](https://github.com/nytimes/covid-19-data/)!)?  
+Each row represents the cumulative number of Covid-19 cases and deaths based on NY Times best reporting up to an update.
 - What did you learn about the dataset when you calculated the state with the lowest cases (and what does that tell you about testing your assumptions in a dataset)?
 - Is the location with the highest number of cases the location with the most deaths? If not, why do you believe that may be the case? 
 - What do the plots of cases and deaths tell us about the  pandemic happening in "waves"? How (and why, do you think) these plots look so different?

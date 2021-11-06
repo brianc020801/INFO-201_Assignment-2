@@ -17,22 +17,29 @@
 # each question (though feel free to ask if it's unclear!)
 
 # Load the tidyverse package
-
+library(tidyverse)
 
 # Load the *national level* data into a variable. `national`
 # (hint: you'll need to get the "raw" URL from the NYT GitHub page)
 
+national <- read.csv(url("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv"))
 
 # Load the *state level* data into a variable. `states`
 
+states <- read.csv(url("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"))
 
 # Load the *county level* data into a variable. `counties`
 # (this is a large dataset, which may take ~30 seconds to load)
 
+counties <- read.csv(url("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"))
 
 # How many observations (rows) are in each dataset?
 # Create `obs_national`, `obs_states`, `obs_counties`
 
+
+obs_counties <- nrow(counties)
+obs_national <- nrow(national)
+obs_states <- nrow(states)
 
 # Reflection: What does each row represent in each dataset?
 
