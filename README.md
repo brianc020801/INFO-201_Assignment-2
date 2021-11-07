@@ -19,5 +19,6 @@ There wasn't only just states but US territories as well, this tells me that we 
 - Is the location with the highest number of cases the location with the most deaths? If not, why do you believe that may be the case?  
 No, it wasn't. I believe this was the case because New York is a lot smaller city than Los Angeles, but with way more people, which results in the lack of medical aid that could be provided to such a huge amount of people.
 - What do the plots of cases and deaths tell us about the  pandemic happening in "waves"? How (and why, do you think) these plots look so different?
-- Why are there so many observations (counties) in the variable `lowest_in_each_state` (i.e., wouldn't you expect the number to be ~50)?
+- Why are there so many observations (counties) in the variable `lowest_in_each_state` (i.e., wouldn't you expect the number to be ~50)?  
+Because there was the counties for US territories and not just the 50 states.
 - What surprised you the most throughout your analysis?

@@ -140,6 +140,7 @@ counties <- mutate(counties, location = sprintf("%s, %s", county, state))
 # What is the name of the location (county, state) with the highest number
 # of deaths? `location_most_deaths`
 
+#New York City, New York
 location_most_deaths <- select(filter(counties, deaths == max(na.omit(deaths))), location)[[1]]
 
 # Reflection: Is the location with the highest number of cases the location with
@@ -152,21 +153,30 @@ location_most_deaths <- select(filter(counties, deaths == max(na.omit(deaths))),
 # that has the nubmer of *new* cases each day (hint: look for the `lag`
 # function).
 
+national <- mutate(national, new_cases = cases - lag(cases, 1))
 
 # Similarly, the `deaths` columns *is not* the number of new deaths per day.
 # Add (mutate) a new column on your `national` data frame called `new_deaths`
 # that has the nubmer of *new* deaths each day
 
+national <- mutate(national, new_deaths = deaths - lag(deaths, 1))
 
 # What was the date when the most new cases occured?
 # `date_most_cases`
 
+#2021-09-07
+date_most_cases <- select(filter(national, new_cases == max(na.omit(new_cases))), date)[[1]]
 
 # What was the date when the most new deaths occured?
 # `date_most_deaths`
 
+#2021-02-12
+date_most_deaths <- select(filter(national, new_deaths == max(na.omit(new_deaths))), date)[[1]]
 
 # How many people died on the date when the most deaths occured? `most_deaths`
+
+#5463
+most_deaths <- select(filter(national, new_deaths == max(na.omit(new_deaths))), new_deaths)[[1]]
 
 # Grouped analysis --------------------------------------------------------
 
@@ -179,16 +189,17 @@ location_most_deaths <- select(filter(counties, deaths == max(na.omit(deaths))),
 # `location` names (the column with COUNTY, STATE).
 # Hint: be careful about the order of filtering your data!
 
+highest_in_each_state <- select(summarize(group_by(arrange(counties, desc(cases)), state), location = first(location)), location)[[1]]
 
 # What is the county with the *current* (e.g., on the most recent date)
 # lowest number of deaths in each state? Your answer, stored in
 # `lowest_in_each_state`, should be a *vector* of
 # `location` names (the column with COUNTY, STATE).
 
+lowest_in_each_state <- select(summarize(group_by(arrange(counties, deaths), state), location = first(location)), location)[[1]]
 
 # Reflection: Why are there so many observations (counties) in the variable
 # `lowest_in_each_state` (i.e., wouldn't you expect the number to be ~50)?
-
 
 # The following is a check on our understanding of the data.
 # Presumably, if we add up all of the cases on each day in the
