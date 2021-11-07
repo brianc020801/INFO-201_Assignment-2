@@ -16,7 +16,8 @@ You should start this assignment by opening up your `analysis.R` script. The scr
 Each row represents the cumulative number of Covid-19 cases and deaths based on NY Times best reporting up to an update.
 - What did you learn about the dataset when you calculated the state with the lowest cases (and what does that tell you about testing your assumptions in a dataset)?  
 There wasn't only just states but US territories as well, this tells me that we need to be sure of what data we have, because when people mention state, we usually only think about the major states and not the territories too.
-- Is the location with the highest number of cases the location with the most deaths? If not, why do you believe that may be the case? 
+- Is the location with the highest number of cases the location with the most deaths? If not, why do you believe that may be the case?  
+No, it wasn't. I believe this was the case because New York is a lot smaller city than Los Angeles, but with way more people, which results in the lack of medical aid that could be provided to such a huge amount of people.
 - What do the plots of cases and deaths tell us about the  pandemic happening in "waves"? How (and why, do you think) these plots look so different?
 - Why are there so many observations (counties) in the variable `lowest_in_each_state` (i.e., wouldn't you expect the number to be ~50)?
 - What surprised you the most throughout your analysis?

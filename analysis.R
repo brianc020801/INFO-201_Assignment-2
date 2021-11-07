@@ -36,10 +36,14 @@ library(tidyverse)
 # How many observations (rows) are in each dataset?
 # Create `obs_national`, `obs_states`, `obs_counties`
 
-
-obs_counties <- nrow(counties)
+#655
 obs_national <- nrow(national)
+
+#33774
 obs_states <- nrow(states)
+
+#1888095
+obs_counties <- nrow(counties)
 
 # Reflection: What does each row represent in each dataset?
 
@@ -47,8 +51,13 @@ obs_states <- nrow(states)
 # How many features (columns) are there in each dataset?
 # Create `num_features_national`, `num_features_states`, `num_features_counties`
 
+#3
 num_features_national <- ncol(national)
+
+#5
 num_features_states <- ncol(states)
+
+#6
 num_features_counties <- ncol(counties)
 
 # Exploratory analysis ----------------------------------------------------
@@ -67,33 +76,39 @@ num_features_counties <- ncol(counties)
 # How many total cases have there been in the U.S. by the most recent date
 # in the dataset? `total_us_cases`
 
+#46395307
 total_us_cases <- select(filter(national, cases == max(cases)), cases)[[1]]
 
 # How many total deaths have there been in the U.S. by the most recent date
 # in the dataset? `total_us_deaths`
 
+#753517
 total_us_deaths <- select(filter(national, deaths == max(deaths)), deaths)[[1]]
 
 # Which state has had the highest number of cases?
 # `state_highest_cases`
 
+#California
 state_highest_cases <- select(filter(states, cases == max(cases)), state)[[1]]
 
 # What is the highest number of cases in a state?
 # `num_highest_state`
 
-num_highest_cases <- select(filter(states, cases == max(cases)), cases)[[1]]
+#4959010
+num_highest_state <- select(filter(states, cases == max(cases)), cases)[[1]]
 
 # Which state has the highest ratio of deaths to cases (deaths/cases), as of the
 # most recent date? `state_highest_ratio`
 # (hint: you may need to create a new column in order to do this!)
 
+#New Jersey
 state_highest_ratio <- select(filter(summarise(group_by(states, state), ratio = max(deaths)/max(cases)), ratio == max(ratio)), state)[[1]]
 
 # Which state has had the lowest number of cases *as of the most recent date*?
 # (hint, this is a little trickier to calculate than the maximum because
 # of the meaning of the row). `state_lowest_cases`
 
+#American Samoa
 state_lowest_cases <- select(filter(summarise(group_by(states, state), cases = max(cases)), cases == min(cases)), state)[[1]]
 
 # Reflection: What did you learn about the dataset when you calculated
@@ -103,10 +118,14 @@ state_lowest_cases <- select(filter(summarise(group_by(states, state), cases = m
 # Which county has had the highest number of cases?
 # `county_highest_cases`
 
+#Los Angeles
+county_highest_cases <- select(filter(counties, cases == max(cases)), county)[[1]]
 
 # What is the highest number of cases that have happened in a single county?
 # `num_highest_cases_county`
 
+#1500615
+num_highest_cases_county <- select(filter(counties, cases == max(cases)), cases)[[1]]
 
 # Because there are multiple counties with the same name across states, it
 # will be helpful to have a column that stores the county and state together
@@ -116,10 +135,12 @@ state_lowest_cases <- select(filter(summarise(group_by(states, state), cases = m
 # You can do this by mutating a new column, or using the `unite()` function
 # (just make sure to keep the original columns as well)
 
+counties <- mutate(counties, location = sprintf("%s, %s", county, state))
 
 # What is the name of the location (county, state) with the highest number
 # of deaths? `location_most_deaths`
 
+location_most_deaths <- select(filter(counties, deaths == max(na.omit(deaths))), location)[[1]]
 
 # Reflection: Is the location with the highest number of cases the location with
 # the most deaths? If not, why do you believe that may be the case?
