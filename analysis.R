@@ -211,28 +211,35 @@ lowest_in_each_state <- select(summarize(group_by(arrange(counties, deaths), sta
 # `state_total`
 # This will be a dataframe with the columns `date` and `state_total`.
 
+state_by_day <- summarize(group_by(states, date), state_total = sum(cases))
 
 # Next, let's create `county_by_day` by adding up the cases on each day in the
 # `counties` dataframe. For clarity, let's call the column with the total cases
 # `county_total`
 # This will also be a dataframe, with the columns `date` and `county_total`.
 
+county_by_day <- summarize(group_by(counties, date), county_total = sum(cases))
 
 # Now, there are a few ways to check if they are always equal. To start,
 # let's *join* those two dataframes into one called `totals_by_day`
 
+totals_by_day = full_join(state_by_day, county_by_day)
 
 # Next, let's create a variable `all_totals` by joining `totals_by_day`
 # to the `national` dataframe
 
+all_totals <- full_join(national, totals_by_day)
 
 # How many rows are there where the state total *doesn't equal* the natinal
 # cases reported? `num_state_diff`
 
+#
+num_state_diff <- nrow(filter(all_totals, cases != state_total))
 
 # How many rows are there where the county total *doesn't equal* the natinal
 # cases reported? `num_county_diff`
 
+num_county_diff <- nrow(filter(all_totals, cases != county_total))
 
 # Oh no! An inconsistency -- let's dig further into this. Let's see if we can
 # find out *where* this inconsistency lies. Let's take the county level data,
