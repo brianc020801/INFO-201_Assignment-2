@@ -22,16 +22,16 @@ library(tidyverse)
 # Load the *national level* data into a variable. `national`
 # (hint: you'll need to get the "raw" URL from the NYT GitHub page)
 
-national <- read.csv(url("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv"))
+#national <- read.csv(url("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us.csv"))
 
 # Load the *state level* data into a variable. `states`
 
-states <- read.csv(url("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"))
+#states <- read.csv(url("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-states.csv"))
 
 # Load the *county level* data into a variable. `counties`
 # (this is a large dataset, which may take ~30 seconds to load)
 
-counties <- read.csv(url("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"))
+#counties <- read.csv(url("https://raw.githubusercontent.com/nytimes/covid-19-data/master/us-counties.csv"))
 
 # How many observations (rows) are in each dataset?
 # Create `obs_national`, `obs_states`, `obs_counties`
@@ -47,7 +47,9 @@ obs_states <- nrow(states)
 # How many features (columns) are there in each dataset?
 # Create `num_features_national`, `num_features_states`, `num_features_counties`
 
-
+num_features_national <- ncol(national)
+num_features_states <- ncol(states)
+num_features_counties <- ncol(counties)
 
 # Exploratory analysis ----------------------------------------------------
 
@@ -65,26 +67,34 @@ obs_states <- nrow(states)
 # How many total cases have there been in the U.S. by the most recent date
 # in the dataset? `total_us_cases`
 
+total_us_cases <- select(filter(national, cases == max(cases)), cases)[[1]]
+
 # How many total deaths have there been in the U.S. by the most recent date
 # in the dataset? `total_us_deaths`
+
+total_us_deaths <- select(filter(national, deaths == max(deaths)), deaths)[[1]]
 
 # Which state has had the highest number of cases?
 # `state_highest_cases`
 
+state_highest_cases <- select(filter(states, cases == max(cases)), state)[[1]]
 
 # What is the highest number of cases in a state?
 # `num_highest_state`
 
+num_highest_cases <- select(filter(states, cases == max(cases)), cases)[[1]]
 
 # Which state has the highest ratio of deaths to cases (deaths/cases), as of the
 # most recent date? `state_highest_ratio`
 # (hint: you may need to create a new column in order to do this!)
 
+state_highest_ratio <- select(filter(summarise(group_by(states, state), ratio = max(deaths)/max(cases)), ratio == max(ratio)), state)[[1]]
 
 # Which state has had the lowest number of cases *as of the most recent date*?
 # (hint, this is a little trickier to calculate than the maximum because
 # of the meaning of the row). `state_lowest_cases`
 
+state_lowest_cases <- select(filter(summarise(group_by(states, state), cases = max(cases)), cases == min(cases)), state)[[1]]
 
 # Reflection: What did you learn about the dataset when you calculated
 # the state with the lowest cases (and what does that tell you about
