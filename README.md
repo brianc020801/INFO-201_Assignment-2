@@ -21,4 +21,5 @@ You should start this assignment by opening up your `analysis.R` script. The scr
 - What do the plots of cases and deaths tell us about the  pandemic happening in "waves"? How (and why, do you think) these plots look so different?
 - Why are there so many observations (counties) in the variable `lowest_in_each_state` (i.e., wouldn't you expect the number to be ~50)?  
   + Because there was the counties for US territories and not just the 50 states.
-- What surprised you the most throughout your analysis?
+- What surprised you the most throughout your analysis?  
+  + I think is that some of the data collected actually showed decrease in cases, which could be an error on the NY Times, because if taking cumulative changes then the total shouldn't decrease.

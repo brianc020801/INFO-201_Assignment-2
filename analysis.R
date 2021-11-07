@@ -161,6 +161,7 @@ national <- mutate(national, new_cases = cases - lag(cases, 1))
 
 national <- mutate(national, new_deaths = deaths - lag(deaths, 1))
 
+
 # What was the date when the most new cases occured?
 # `date_most_cases`
 
@@ -279,5 +280,24 @@ state_highest_difference <- select(filter(has_discrepancy, abs_difference == max
 # then use the appropriate code to answer them.
 
 
+#Which day in NY has the most deaths
+
+#2020-04-07
+ny_deaths <- filter(states, state == "New York")
+ny_deaths <- mutate(ny_deaths, new_deaths = deaths - lag(deaths, 1))
+ny_day_with_most_deaths <- select(filter(ny_deaths, new_deaths == max(na.omit(new_deaths))), date)[[1]]
+
+
+#Which day in California has the most cases
+
+#2020-12-26
+california_cases <- filter(states, state == "California")
+california_cases <- mutate(california_cases, new_cases = cases - lag(cases, 1))
+cali_day_with_most_cases <- select(filter(california_cases, new_cases == max(na.omit(new_cases))), date)[[1]]
+
+#State with lowest absolute difference between sum county cases and reported state cases
+
+#Iowa
+state_lowest_difference <- select(filter(has_discrepancy, abs_difference == min(abs_difference)), state)[[1]]
 
 # Reflection: What surprised you the most throughout your analysis?
