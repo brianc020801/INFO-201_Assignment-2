@@ -233,12 +233,13 @@ all_totals <- full_join(national, totals_by_day)
 # How many rows are there where the state total *doesn't equal* the natinal
 # cases reported? `num_state_diff`
 
-#
+#0
 num_state_diff <- nrow(filter(all_totals, cases != state_total))
 
 # How many rows are there where the county total *doesn't equal* the natinal
 # cases reported? `num_county_diff`
 
+#29
 num_county_diff <- nrow(filter(all_totals, cases != county_total))
 
 # Oh no! An inconsistency -- let's dig further into this. Let's see if we can
@@ -250,26 +251,33 @@ num_county_diff <- nrow(filter(all_totals, cases != county_total))
 # specify `.groups = "drop"` in your `summarize()` statement. This is a bit of
 # an odd behavior....)
 
-
+sum_county_to_state <- counties %>% group_by(state, date) %>% dplyr::summarize(.groups = "drop", county_totals = sum(cases))
 # Then, let's join together the `sum_county_to_state` dataframe with the
 # `states` dataframe into the variable `joined_states`.
 
+joined_states = full_join(states, sum_county_to_state)
 
 # To find out where (and when) there is a discrepancy in the number of cases,
 # create the variable `has_discrepancy`, which has *only* the observations
 # where the sum of the county cases in each state and the state values are
 # different. This will be a *dataframe*.
 
+has_discrepancy <- filter(joined_states, county_totals != cases)
 
 # Next, lets find the *state* where there is the *highest absolute difference*
 # between the sum of the county cases and the reported state cases.
 # `state_highest_difference`.
 # (hint: you may want to create a new column in `has_discrepancy` to do this.)
 
+#Missouri
+has_discrepancy <- mutate(has_discrepancy, abs_difference = abs(county_totals - cases))
+state_highest_difference <- select(filter(has_discrepancy, abs_difference == max(abs_difference)), state)[[1]]
 
 # Independent exploration -------------------------------------------------
 
 # Ask your own 3 questions: in the section below, pose 3 questions,
 # then use the appropriate code to answer them.
+
+
 
 # Reflection: What surprised you the most throughout your analysis?
